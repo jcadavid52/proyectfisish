@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BD_SPIRITUAL_ARTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="REGISTRO_ARTISTA">
+          <Key>
+            <PropertyRef Name="PK_ID_ARTISTA" />
+          </Key>
+          <Property Name="PK_ID_ARTISTA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE_ARTISTA" Type="varchar" MaxLength="50" />
+          <Property Name="PRIMER_APELLIDO_ARTISTA" Type="varchar" MaxLength="50" />
+          <Property Name="SEGUNDO_APELLIDO_ARTISTA" Type="varchar" MaxLength="50" />
+          <Property Name="TELEFONO" Type="varchar" MaxLength="30" />
+          <Property Name="CORREO" Type="varchar" MaxLength="40" />
+          <Property Name="PAIS" Type="varchar" MaxLength="30" />
+          <Property Name="CIUDAD" Type="varchar" MaxLength="30" />
+          <Property Name="LOCALIDAD" Type="varchar" MaxLength="50" />
+          <Property Name="DIRECCION" Type="varchar" MaxLength="50" />
+          <Property Name="CLAVE" Type="int" />
+          <Property Name="FK_TIPO_PLAN" Type="int" />
+          <Property Name="ESTADO" Type="bit" />
+          <Property Name="IMAGEN" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="TIPO_PLAN">
+          <Key>
+            <PropertyRef Name="PK_ID_TIPO_PLAN" />
+          </Key>
+          <Property Name="PK_ID_TIPO_PLAN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE_PLAN" Type="varchar" MaxLength="20" />
+          <Property Name="PRECIO" Type="float" />
+          <Property Name="DESCRIPCION_CANTIDAD_OBRAS" Type="varchar(max)" />
+          <Property Name="DESCRIPCION_VISIBILIDAD" Type="varchar(max)" />
+          <Property Name="DESCRIPCION_BUSQUEDA" Type="varchar(max)" />
+          <Property Name="DESCRIPCION_TIEMPO_PLAN" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK__REGISTRO___FK_TI__3D5E1FD2">
+          <End Role="TIPO_PLAN" Type="Self.TIPO_PLAN" Multiplicity="0..1" />
+          <End Role="REGISTRO_ARTISTA" Type="Self.REGISTRO_ARTISTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_PLAN">
+              <PropertyRef Name="PK_ID_TIPO_PLAN" />
+            </Principal>
+            <Dependent Role="REGISTRO_ARTISTA">
+              <PropertyRef Name="FK_TIPO_PLAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_REGISTRAR_ARTISTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NOMBRE_ARTISTA" Type="varchar" Mode="In" />
+          <Parameter Name="PRIMER_APELLIDO_ARTISTA" Type="varchar" Mode="In" />
+          <Parameter Name="SEGUNDO_APELLIDO_ARTISTA" Type="varchar" Mode="In" />
+          <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
+          <Parameter Name="CORREO" Type="varchar" Mode="In" />
+          <Parameter Name="PAIS" Type="varchar" Mode="In" />
+          <Parameter Name="CIUDAD" Type="varchar" Mode="In" />
+          <Parameter Name="LOCALIDAD" Type="varchar" Mode="In" />
+          <Parameter Name="DIRECCION" Type="varchar" Mode="In" />
+          <Parameter Name="FK_TIPO_PLAN" Type="int" Mode="In" />
+          <Parameter Name="CLAVE" Type="int" Mode="In" />
+          <Parameter Name="ESTADO" Type="bit" Mode="In" />
+          <Parameter Name="IMAGEN" Type="varchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="BD_SPIRITUAL_ARTModelStoreContainer">
+          <EntitySet Name="REGISTRO_ARTISTA" EntityType="Self.REGISTRO_ARTISTA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPO_PLAN" EntityType="Self.TIPO_PLAN" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__REGISTRO___FK_TI__3D5E1FD2" Association="Self.FK__REGISTRO___FK_TI__3D5E1FD2">
+            <End Role="TIPO_PLAN" EntitySet="TIPO_PLAN" />
+            <End Role="REGISTRO_ARTISTA" EntitySet="REGISTRO_ARTISTA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BD_SPIRITUAL_ARTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BD_SPIRITUAL_ARTEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="SP_REGISTRAR_ARTISTA">
+            <Parameter Name="NOMBRE_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="PRIMER_APELLIDO_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="SEGUNDO_APELLIDO_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="TELEFONO" Mode="In" Type="String" />
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+            <Parameter Name="PAIS" Mode="In" Type="String" />
+            <Parameter Name="CIUDAD" Mode="In" Type="String" />
+            <Parameter Name="LOCALIDAD" Mode="In" Type="String" />
+            <Parameter Name="DIRECCION" Mode="In" Type="String" />
+            <Parameter Name="FK_TIPO_PLAN" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_REGISTRAR_ARTISTA1">
+            <Parameter Name="NOMBRE_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="PRIMER_APELLIDO_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="SEGUNDO_APELLIDO_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="TELEFONO" Mode="In" Type="String" />
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+            <Parameter Name="PAIS" Mode="In" Type="String" />
+            <Parameter Name="CIUDAD" Mode="In" Type="String" />
+            <Parameter Name="LOCALIDAD" Mode="In" Type="String" />
+            <Parameter Name="DIRECCION" Mode="In" Type="String" />
+            <Parameter Name="FK_TIPO_PLAN" Mode="In" Type="Int32" />
+            <Parameter Name="CLAVE" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_REGISTRAR_ARTISTA2">
+            <Parameter Name="NOMBRE_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="PRIMER_APELLIDO_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="SEGUNDO_APELLIDO_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="TELEFONO" Mode="In" Type="String" />
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+            <Parameter Name="PAIS" Mode="In" Type="String" />
+            <Parameter Name="CIUDAD" Mode="In" Type="String" />
+            <Parameter Name="LOCALIDAD" Mode="In" Type="String" />
+            <Parameter Name="DIRECCION" Mode="In" Type="String" />
+            <Parameter Name="FK_TIPO_PLAN" Mode="In" Type="Int32" />
+            <Parameter Name="CLAVE" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_REGISTRAR_ARTISTA3">
+            <Parameter Name="NOMBRE_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="PRIMER_APELLIDO_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="SEGUNDO_APELLIDO_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="TELEFONO" Mode="In" Type="String" />
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+            <Parameter Name="PAIS" Mode="In" Type="String" />
+            <Parameter Name="CIUDAD" Mode="In" Type="String" />
+            <Parameter Name="LOCALIDAD" Mode="In" Type="String" />
+            <Parameter Name="DIRECCION" Mode="In" Type="String" />
+            <Parameter Name="FK_TIPO_PLAN" Mode="In" Type="Int32" />
+            <Parameter Name="CLAVE" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_REGISTRAR_ARTISTA4">
+            <Parameter Name="NOMBRE_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="PRIMER_APELLIDO_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="SEGUNDO_APELLIDO_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="TELEFONO" Mode="In" Type="String" />
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+            <Parameter Name="PAIS" Mode="In" Type="String" />
+            <Parameter Name="CIUDAD" Mode="In" Type="String" />
+            <Parameter Name="LOCALIDAD" Mode="In" Type="String" />
+            <Parameter Name="DIRECCION" Mode="In" Type="String" />
+            <Parameter Name="FK_TIPO_PLAN" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_REGISTRAR_ARTISTA5">
+            <Parameter Name="NOMBRE_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="PRIMER_APELLIDO_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="SEGUNDO_APELLIDO_ARTISTA" Mode="In" Type="String" />
+            <Parameter Name="TELEFONO" Mode="In" Type="String" />
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+            <Parameter Name="PAIS" Mode="In" Type="String" />
+            <Parameter Name="CIUDAD" Mode="In" Type="String" />
+            <Parameter Name="LOCALIDAD" Mode="In" Type="String" />
+            <Parameter Name="DIRECCION" Mode="In" Type="String" />
+            <Parameter Name="FK_TIPO_PLAN" Mode="In" Type="Int32" />
+            <Parameter Name="CLAVE" Mode="In" Type="Int32" />
+            <Parameter Name="ESTADO" Mode="In" Type="Boolean" />
+            <Parameter Name="IMAGEN" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="REGISTRO_ARTISTA" EntityType="BD_SPIRITUAL_ARTModel.REGISTRO_ARTISTA" />
+          <EntitySet Name="TIPO_PLAN" EntityType="BD_SPIRITUAL_ARTModel.TIPO_PLAN" />
+          <AssociationSet Name="FK__REGISTRO___FK_TI__3D5E1FD2" Association="BD_SPIRITUAL_ARTModel.FK__REGISTRO___FK_TI__3D5E1FD2">
+            <End Role="TIPO_PLAN" EntitySet="TIPO_PLAN" />
+            <End Role="REGISTRO_ARTISTA" EntitySet="REGISTRO_ARTISTA" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="REGISTRO_ARTISTA">
+          <Key>
+            <PropertyRef Name="PK_ID_ARTISTA" />
+          </Key>
+          <Property Name="PK_ID_ARTISTA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE_ARTISTA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRIMER_APELLIDO_ARTISTA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SEGUNDO_APELLIDO_ARTISTA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CORREO" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="PAIS" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CIUDAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LOCALIDAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIRECCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CLAVE" Type="Int32" />
+          <Property Name="FK_TIPO_PLAN" Type="Int32" />
+          <Property Name="ESTADO" Type="Boolean" />
+          <Property Name="IMAGEN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TIPO_PLAN" Relationship="BD_SPIRITUAL_ARTModel.FK__REGISTRO___FK_TI__3D5E1FD2" FromRole="REGISTRO_ARTISTA" ToRole="TIPO_PLAN" />
+        </EntityType>
+        <EntityType Name="TIPO_PLAN">
+          <Key>
+            <PropertyRef Name="PK_ID_TIPO_PLAN" />
+          </Key>
+          <Property Name="PK_ID_TIPO_PLAN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE_PLAN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PRECIO" Type="Double" />
+          <Property Name="DESCRIPCION_CANTIDAD_OBRAS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION_VISIBILIDAD" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION_BUSQUEDA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION_TIEMPO_PLAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="REGISTRO_ARTISTA" Relationship="BD_SPIRITUAL_ARTModel.FK__REGISTRO___FK_TI__3D5E1FD2" FromRole="TIPO_PLAN" ToRole="REGISTRO_ARTISTA" />
+        </EntityType>
+        <Association Name="FK__REGISTRO___FK_TI__3D5E1FD2">
+          <End Type="BD_SPIRITUAL_ARTModel.TIPO_PLAN" Role="TIPO_PLAN" Multiplicity="0..1" />
+          <End Type="BD_SPIRITUAL_ARTModel.REGISTRO_ARTISTA" Role="REGISTRO_ARTISTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_PLAN">
+              <PropertyRef Name="PK_ID_TIPO_PLAN" />
+            </Principal>
+            <Dependent Role="REGISTRO_ARTISTA">
+              <PropertyRef Name="FK_TIPO_PLAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BD_SPIRITUAL_ARTModelStoreContainer" CdmEntityContainer="BD_SPIRITUAL_ARTEntities">
+          <FunctionImportMapping FunctionImportName="SP_REGISTRAR_ARTISTA5" FunctionName="BD_SPIRITUAL_ARTModel.Store.SP_REGISTRAR_ARTISTA" />
+          <EntitySetMapping Name="REGISTRO_ARTISTA">
+            <EntityTypeMapping TypeName="BD_SPIRITUAL_ARTModel.REGISTRO_ARTISTA">
+              <MappingFragment StoreEntitySet="REGISTRO_ARTISTA">
+                <ScalarProperty Name="IMAGEN" ColumnName="IMAGEN" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="FK_TIPO_PLAN" ColumnName="FK_TIPO_PLAN" />
+                <ScalarProperty Name="CLAVE" ColumnName="CLAVE" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="LOCALIDAD" ColumnName="LOCALIDAD" />
+                <ScalarProperty Name="CIUDAD" ColumnName="CIUDAD" />
+                <ScalarProperty Name="PAIS" ColumnName="PAIS" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="SEGUNDO_APELLIDO_ARTISTA" ColumnName="SEGUNDO_APELLIDO_ARTISTA" />
+                <ScalarProperty Name="PRIMER_APELLIDO_ARTISTA" ColumnName="PRIMER_APELLIDO_ARTISTA" />
+                <ScalarProperty Name="NOMBRE_ARTISTA" ColumnName="NOMBRE_ARTISTA" />
+                <ScalarProperty Name="PK_ID_ARTISTA" ColumnName="PK_ID_ARTISTA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPO_PLAN">
+            <EntityTypeMapping TypeName="BD_SPIRITUAL_ARTModel.TIPO_PLAN">
+              <MappingFragment StoreEntitySet="TIPO_PLAN">
+                <ScalarProperty Name="DESCRIPCION_TIEMPO_PLAN" ColumnName="DESCRIPCION_TIEMPO_PLAN" />
+                <ScalarProperty Name="DESCRIPCION_BUSQUEDA" ColumnName="DESCRIPCION_BUSQUEDA" />
+                <ScalarProperty Name="DESCRIPCION_VISIBILIDAD" ColumnName="DESCRIPCION_VISIBILIDAD" />
+                <ScalarProperty Name="DESCRIPCION_CANTIDAD_OBRAS" ColumnName="DESCRIPCION_CANTIDAD_OBRAS" />
+                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
+                <ScalarProperty Name="NOMBRE_PLAN" ColumnName="NOMBRE_PLAN" />
+                <ScalarProperty Name="PK_ID_TIPO_PLAN" ColumnName="PK_ID_TIPO_PLAN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

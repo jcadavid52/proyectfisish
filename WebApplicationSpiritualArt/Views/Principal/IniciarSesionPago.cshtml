@@ -1,0 +1,16 @@
+﻿@model WebApplicationSpiritualArt.Models.REGISTRO_ARTISTA
+@{
+    ViewBag.Title = "IniciarSesion";
+}
+
+<h2>IniciarSesion</h2>
+
+<input type="text" value="@TempData["correoRegistrado"]" id="correo" hidden />
+@if (Model.CLAVE != null)
+{
+    <script>
+        var correo = document.getElementById("correo").value;
+
+        alert("Hemos enviado el usuario y contraseña al correo: " + correo)
+    </script>
+}

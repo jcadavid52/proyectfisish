@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BD_SPIRITUAL_ARTModelStoreContainer" CdmEntityContainer="BD_SPIRITUAL_ARTEntities">
+    <FunctionImportMapping FunctionImportName="SP_REGISTRAR_ARTISTA5" FunctionName="BD_SPIRITUAL_ARTModel.Store.SP_REGISTRAR_ARTISTA" />
+    <EntitySetMapping Name="REGISTRO_ARTISTA">
+      <EntityTypeMapping TypeName="BD_SPIRITUAL_ARTModel.REGISTRO_ARTISTA">
+        <MappingFragment StoreEntitySet="REGISTRO_ARTISTA">
+          <ScalarProperty Name="IMAGEN" ColumnName="IMAGEN" />
+          <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+          <ScalarProperty Name="FK_TIPO_PLAN" ColumnName="FK_TIPO_PLAN" />
+          <ScalarProperty Name="CLAVE" ColumnName="CLAVE" />
+          <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+          <ScalarProperty Name="LOCALIDAD" ColumnName="LOCALIDAD" />
+          <ScalarProperty Name="CIUDAD" ColumnName="CIUDAD" />
+          <ScalarProperty Name="PAIS" ColumnName="PAIS" />
+          <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+          <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+          <ScalarProperty Name="SEGUNDO_APELLIDO_ARTISTA" ColumnName="SEGUNDO_APELLIDO_ARTISTA" />
+          <ScalarProperty Name="PRIMER_APELLIDO_ARTISTA" ColumnName="PRIMER_APELLIDO_ARTISTA" />
+          <ScalarProperty Name="NOMBRE_ARTISTA" ColumnName="NOMBRE_ARTISTA" />
+          <ScalarProperty Name="PK_ID_ARTISTA" ColumnName="PK_ID_ARTISTA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TIPO_PLAN">
+      <EntityTypeMapping TypeName="BD_SPIRITUAL_ARTModel.TIPO_PLAN">
+        <MappingFragment StoreEntitySet="TIPO_PLAN">
+          <ScalarProperty Name="DESCRIPCION_TIEMPO_PLAN" ColumnName="DESCRIPCION_TIEMPO_PLAN" />
+          <ScalarProperty Name="DESCRIPCION_BUSQUEDA" ColumnName="DESCRIPCION_BUSQUEDA" />
+          <ScalarProperty Name="DESCRIPCION_VISIBILIDAD" ColumnName="DESCRIPCION_VISIBILIDAD" />
+          <ScalarProperty Name="DESCRIPCION_CANTIDAD_OBRAS" ColumnName="DESCRIPCION_CANTIDAD_OBRAS" />
+          <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
+          <ScalarProperty Name="NOMBRE_PLAN" ColumnName="NOMBRE_PLAN" />
+          <ScalarProperty Name="PK_ID_TIPO_PLAN" ColumnName="PK_ID_TIPO_PLAN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BD_SPIRITUAL_ARTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="REGISTRO_ARTISTA">
+    <Key>
+      <PropertyRef Name="PK_ID_ARTISTA" />
+    </Key>
+    <Property Name="PK_ID_ARTISTA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE_ARTISTA" Type="varchar" MaxLength="50" />
+    <Property Name="PRIMER_APELLIDO_ARTISTA" Type="varchar" MaxLength="50" />
+    <Property Name="SEGUNDO_APELLIDO_ARTISTA" Type="varchar" MaxLength="50" />
+    <Property Name="TELEFONO" Type="varchar" MaxLength="30" />
+    <Property Name="CORREO" Type="varchar" MaxLength="40" />
+    <Property Name="PAIS" Type="varchar" MaxLength="30" />
+    <Property Name="CIUDAD" Type="varchar" MaxLength="30" />
+    <Property Name="LOCALIDAD" Type="varchar" MaxLength="50" />
+    <Property Name="DIRECCION" Type="varchar" MaxLength="50" />
+    <Property Name="CLAVE" Type="int" />
+    <Property Name="FK_TIPO_PLAN" Type="int" />
+    <Property Name="ESTADO" Type="bit" />
+    <Property Name="IMAGEN" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="TIPO_PLAN">
+    <Key>
+      <PropertyRef Name="PK_ID_TIPO_PLAN" />
+    </Key>
+    <Property Name="PK_ID_TIPO_PLAN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE_PLAN" Type="varchar" MaxLength="20" />
+    <Property Name="PRECIO" Type="float" />
+    <Property Name="DESCRIPCION_CANTIDAD_OBRAS" Type="varchar(max)" />
+    <Property Name="DESCRIPCION_VISIBILIDAD" Type="varchar(max)" />
+    <Property Name="DESCRIPCION_BUSQUEDA" Type="varchar(max)" />
+    <Property Name="DESCRIPCION_TIEMPO_PLAN" Type="varchar(max)" />
+  </EntityType>
+  <Association Name="FK__REGISTRO___FK_TI__3D5E1FD2">
+    <End Role="TIPO_PLAN" Type="Self.TIPO_PLAN" Multiplicity="0..1" />
+    <End Role="REGISTRO_ARTISTA" Type="Self.REGISTRO_ARTISTA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPO_PLAN">
+        <PropertyRef Name="PK_ID_TIPO_PLAN" />
+      </Principal>
+      <Dependent Role="REGISTRO_ARTISTA">
+        <PropertyRef Name="FK_TIPO_PLAN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="SP_REGISTRAR_ARTISTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NOMBRE_ARTISTA" Type="varchar" Mode="In" />
+    <Parameter Name="PRIMER_APELLIDO_ARTISTA" Type="varchar" Mode="In" />
+    <Parameter Name="SEGUNDO_APELLIDO_ARTISTA" Type="varchar" Mode="In" />
+    <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
+    <Parameter Name="CORREO" Type="varchar" Mode="In" />
+    <Parameter Name="PAIS" Type="varchar" Mode="In" />
+    <Parameter Name="CIUDAD" Type="varchar" Mode="In" />
+    <Parameter Name="LOCALIDAD" Type="varchar" Mode="In" />
+    <Parameter Name="DIRECCION" Type="varchar" Mode="In" />
+    <Parameter Name="FK_TIPO_PLAN" Type="int" Mode="In" />
+    <Parameter Name="CLAVE" Type="int" Mode="In" />
+    <Parameter Name="ESTADO" Type="bit" Mode="In" />
+    <Parameter Name="IMAGEN" Type="varchar(max)" Mode="In" />
+  </Function>
+  <EntityContainer Name="BD_SPIRITUAL_ARTModelStoreContainer">
+    <EntitySet Name="REGISTRO_ARTISTA" EntityType="Self.REGISTRO_ARTISTA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TIPO_PLAN" EntityType="Self.TIPO_PLAN" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__REGISTRO___FK_TI__3D5E1FD2" Association="Self.FK__REGISTRO___FK_TI__3D5E1FD2">
+      <End Role="TIPO_PLAN" EntitySet="TIPO_PLAN" />
+      <End Role="REGISTRO_ARTISTA" EntitySet="REGISTRO_ARTISTA" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "IniciarSesion";
+}
+
+<h2>IniciarSesion</h2>
+
+<form action="@Url.Action("IniciarSesionAccion","Principal")" method="post">
+    <label>Ingrese usuario</label><br /><br />
+    <input type="text" name="CORREO" value="" /><br /><br />
+    <input type="password" name="CLAVE" value="" /><br /><br />
+    <input type="submit" class="btn btn-primary" value="Ingresar" /><br /><br />
+    <label style="color:red">@ViewBag.Mensaje </label>
+
+</form>
