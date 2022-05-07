@@ -1,10 +1,132 @@
-﻿
+﻿@using WebApplicationSpiritualArt.Models
 @{
     ViewBag.Title = "Index";
-   
+    List<PRODUCTO> listarObrasPremium = ViewBag.PremiumArtista;
 }
 
-<h2>Index</h2>
+
+<!-- carousel-->
+
+
+<main>
+    <section>
+        <div class="lx">
+            <div class="lx-row">
+                <div class="lx-card carousel-container">
+                    <div class="item fade">
+                        <div class="image"><img src="~/ArchivosLectura/imagenes-index/imgs1.jpg" /></div>
+                    </div>
+                    <div class="item fade">
+                        <div class="image"><img src="~/ArchivosLectura/imagenes-index/imgs1.jpg" /></div>
+                        <div class="text ">
+                            <h1 class="title"> <i class="far fa-hand-point-right"></i>&nbsp;This item has a title.</h1>
+                            <p>This item has a caption, aligned to the left.</p>
+                        </div>
+                    </div>
+                    <div class="item fade">
+                        <div class="image"><img src="https://bit.ly/3iMHuI1" /></div>
+                        <div class="text is-text-centered">
+                            <p> <i class="fas fa-info-circle"></i>&nbsp;This item has a caption, aligned to the center.</p>
+                        </div>
+                    </div><a class="prev has-dflex-center"><i class="fas fa-angle-left"></i></a><a class="next has-dflex-center"><i class="fas fa-angle-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<!--carousel 2-->
+
+
+<div class="body2">
+    <h2 class="titulocate">Obras Destacadas</h2>
+    <div id="wrapper">
+        <div id="carousel">
+            <div id="content">
+                @foreach (var obrasPremium in listarObrasPremium)
+                {
+
+                    <figure style="background-image:url(@obrasPremium.IMAGEN_PRODUCTO);">
+
+                        <figcaption class="spn">
+                            <a href="">@obrasPremium.NOMBRE_PRODUCTO</a>
+                            <a href="">@obrasPremium.REGISTRO_ARTISTA.NOMBRE_ARTISTA</a>
 
 
 
+                        </figcaption>
+
+                    </figure>
+
+
+                }
+
+
+            </div>
+        </div>
+        <button id="prev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="none" d="M0 0h24v24H0V0z" />
+                <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z" />
+            </svg>
+        </button>
+        <button id="next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="none" d="M0 0h24v24H0V0z" />
+                <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" />
+            </svg>
+        </button>
+    </div>
+
+
+
+</div>
+<div class="container">
+    <div class="rowProducts">
+        <h2 class="titulocate">Categorías</h2>
+        <div class="row">
+            <article class="">
+                <figure class="producto">
+                    <img src="~/ArchivosLectura/imagenes-index/pintura.jpg">
+                    <h2 class="subCate">Pintura</h2>
+
+
+                </figure>
+
+            </article>
+
+            <article class="">
+                <figure class="producto">
+                    <img src="~/ArchivosLectura/imagenes-index/escultura.jpg">
+                    <h2 class="subCate">Escultura</h2>
+
+
+                </figure>
+
+            </article>
+
+            <article class="">
+                <figure class="producto">
+                    <img src="~/ArchivosLectura/imagenes-index/lapiz.jpg">
+                    <h2 class="subCate">Dibujo a lápiz</h2>
+
+
+                </figure>
+
+            </article>
+
+
+            <article class="">
+                <figure class="producto">
+                    <img src="~/ArchivosLectura/imagenes-index/fotografia.jpg">
+                    <h2 class="subCate">Fotografía</h2>
+
+
+                </figure>
+
+            </article>
+
+        </div>
+    </div>
+</div>

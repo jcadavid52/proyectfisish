@@ -1,0 +1,38 @@
+﻿@model List<WebApplicationSpiritualArt.Models.PRODUCTO>
+@using WebApplicationSpiritualArt.Models
+@{
+    ViewBag.Title = "Exposicion";
+    List<CATEGORIA> categorias = ViewBag.Categorias;
+}
+
+<h2>Exposicion</h2>
+<form action="@Url.Action("FiltrarObras","Principal")" method="post">
+    <label>Categoría de obra</label>
+    <select name="id_categoria">
+        @foreach (var Itemcategorias in categorias)
+        {
+            <option value="@Itemcategorias.PK_ID_CATEGORIA">@Itemcategorias.NOMBRE_CATEGORIA</option>
+        }
+    </select>
+    <input type="submit" value="Buscar" />
+</form>
+<div class="container">
+    <div class="rowProducts">
+        <h2 class="titulocate">Obras que hacen parte de nuestra comunidad SpiritualArt</h2>
+        <div class="row2">
+            @foreach (var obras in Model)
+            {
+
+                <article class="">
+                    <figure class="producto">
+                        <img src="@Url.Content(obras.IMAGEN_PRODUCTO)">
+                        <h2 class="subCate">@obras.PRECIO</h2>
+
+                    </figure>
+
+                </article>
+            }
+
+        </div>
+    </div>
+</div>

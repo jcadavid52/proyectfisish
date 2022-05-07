@@ -79,13 +79,47 @@
       <Parameter Name="ESTADO" Mode="In" Type="Boolean" />
       <Parameter Name="IMAGEN" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="CATEGORIA" EntityType="BD_SPIRITUAL_ARTModel.CATEGORIA" />
+    <EntitySet Name="PRODUCTO" EntityType="BD_SPIRITUAL_ARTModel.PRODUCTO" />
     <EntitySet Name="REGISTRO_ARTISTA" EntityType="BD_SPIRITUAL_ARTModel.REGISTRO_ARTISTA" />
     <EntitySet Name="TIPO_PLAN" EntityType="BD_SPIRITUAL_ARTModel.TIPO_PLAN" />
+    <AssociationSet Name="FK__PRODUCTO__FK_CAT__5535A963" Association="BD_SPIRITUAL_ARTModel.FK__PRODUCTO__FK_CAT__5535A963">
+      <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+      <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PRODUCTO__FK_ART__5629CD9C" Association="BD_SPIRITUAL_ARTModel.FK__PRODUCTO__FK_ART__5629CD9C">
+      <End Role="REGISTRO_ARTISTA" EntitySet="REGISTRO_ARTISTA" />
+      <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+    </AssociationSet>
     <AssociationSet Name="FK__REGISTRO___FK_TI__3D5E1FD2" Association="BD_SPIRITUAL_ARTModel.FK__REGISTRO___FK_TI__3D5E1FD2">
       <End Role="TIPO_PLAN" EntitySet="TIPO_PLAN" />
       <End Role="REGISTRO_ARTISTA" EntitySet="REGISTRO_ARTISTA" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="CATEGORIA">
+    <Key>
+      <PropertyRef Name="PK_ID_CATEGORIA" />
+    </Key>
+    <Property Name="PK_ID_CATEGORIA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOMBRE_CATEGORIA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PRODUCTO" Relationship="BD_SPIRITUAL_ARTModel.FK__PRODUCTO__FK_CAT__5535A963" FromRole="CATEGORIA" ToRole="PRODUCTO" />
+  </EntityType>
+  <EntityType Name="PRODUCTO">
+    <Key>
+      <PropertyRef Name="PK_ID_PRODUCTO" />
+    </Key>
+    <Property Name="PK_ID_PRODUCTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOMBRE_PRODUCTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PRECIO" Type="Double" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CANTIDAD" Type="Int32" />
+    <Property Name="ESTADO" Type="Boolean" />
+    <Property Name="IMAGEN_PRODUCTO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FK_CATEGORIA" Type="Int32" />
+    <Property Name="FK_ARTISTA" Type="Int32" />
+    <NavigationProperty Name="CATEGORIA" Relationship="BD_SPIRITUAL_ARTModel.FK__PRODUCTO__FK_CAT__5535A963" FromRole="PRODUCTO" ToRole="CATEGORIA" />
+    <NavigationProperty Name="REGISTRO_ARTISTA" Relationship="BD_SPIRITUAL_ARTModel.FK__PRODUCTO__FK_ART__5629CD9C" FromRole="PRODUCTO" ToRole="REGISTRO_ARTISTA" />
+  </EntityType>
   <EntityType Name="REGISTRO_ARTISTA">
     <Key>
       <PropertyRef Name="PK_ID_ARTISTA" />
@@ -104,6 +138,7 @@
     <Property Name="FK_TIPO_PLAN" Type="Int32" />
     <Property Name="ESTADO" Type="Boolean" />
     <Property Name="IMAGEN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PRODUCTO" Relationship="BD_SPIRITUAL_ARTModel.FK__PRODUCTO__FK_ART__5629CD9C" FromRole="REGISTRO_ARTISTA" ToRole="PRODUCTO" />
     <NavigationProperty Name="TIPO_PLAN" Relationship="BD_SPIRITUAL_ARTModel.FK__REGISTRO___FK_TI__3D5E1FD2" FromRole="REGISTRO_ARTISTA" ToRole="TIPO_PLAN" />
   </EntityType>
   <EntityType Name="TIPO_PLAN">
@@ -119,6 +154,30 @@
     <Property Name="DESCRIPCION_TIEMPO_PLAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="REGISTRO_ARTISTA" Relationship="BD_SPIRITUAL_ARTModel.FK__REGISTRO___FK_TI__3D5E1FD2" FromRole="TIPO_PLAN" ToRole="REGISTRO_ARTISTA" />
   </EntityType>
+  <Association Name="FK__PRODUCTO__FK_CAT__5535A963">
+    <End Type="BD_SPIRITUAL_ARTModel.CATEGORIA" Role="CATEGORIA" Multiplicity="0..1" />
+    <End Type="BD_SPIRITUAL_ARTModel.PRODUCTO" Role="PRODUCTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CATEGORIA">
+        <PropertyRef Name="PK_ID_CATEGORIA" />
+      </Principal>
+      <Dependent Role="PRODUCTO">
+        <PropertyRef Name="FK_CATEGORIA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PRODUCTO__FK_ART__5629CD9C">
+    <End Type="BD_SPIRITUAL_ARTModel.REGISTRO_ARTISTA" Role="REGISTRO_ARTISTA" Multiplicity="0..1" />
+    <End Type="BD_SPIRITUAL_ARTModel.PRODUCTO" Role="PRODUCTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="REGISTRO_ARTISTA">
+        <PropertyRef Name="PK_ID_ARTISTA" />
+      </Principal>
+      <Dependent Role="PRODUCTO">
+        <PropertyRef Name="FK_ARTISTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__REGISTRO___FK_TI__3D5E1FD2">
     <End Type="BD_SPIRITUAL_ARTModel.TIPO_PLAN" Role="TIPO_PLAN" Multiplicity="0..1" />
     <End Type="BD_SPIRITUAL_ARTModel.REGISTRO_ARTISTA" Role="REGISTRO_ARTISTA" Multiplicity="*" />

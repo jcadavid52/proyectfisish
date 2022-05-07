@@ -2,6 +2,29 @@
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="BD_SPIRITUAL_ARTModelStoreContainer" CdmEntityContainer="BD_SPIRITUAL_ARTEntities">
     <FunctionImportMapping FunctionImportName="SP_REGISTRAR_ARTISTA5" FunctionName="BD_SPIRITUAL_ARTModel.Store.SP_REGISTRAR_ARTISTA" />
+    <EntitySetMapping Name="CATEGORIA">
+      <EntityTypeMapping TypeName="BD_SPIRITUAL_ARTModel.CATEGORIA">
+        <MappingFragment StoreEntitySet="CATEGORIA">
+          <ScalarProperty Name="NOMBRE_CATEGORIA" ColumnName="NOMBRE_CATEGORIA" />
+          <ScalarProperty Name="PK_ID_CATEGORIA" ColumnName="PK_ID_CATEGORIA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCTO">
+      <EntityTypeMapping TypeName="BD_SPIRITUAL_ARTModel.PRODUCTO">
+        <MappingFragment StoreEntitySet="PRODUCTO">
+          <ScalarProperty Name="FK_ARTISTA" ColumnName="FK_ARTISTA" />
+          <ScalarProperty Name="FK_CATEGORIA" ColumnName="FK_CATEGORIA" />
+          <ScalarProperty Name="IMAGEN_PRODUCTO" ColumnName="IMAGEN_PRODUCTO" />
+          <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+          <ScalarProperty Name="CANTIDAD" ColumnName="CANTIDAD" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
+          <ScalarProperty Name="NOMBRE_PRODUCTO" ColumnName="NOMBRE_PRODUCTO" />
+          <ScalarProperty Name="PK_ID_PRODUCTO" ColumnName="PK_ID_PRODUCTO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="REGISTRO_ARTISTA">
       <EntityTypeMapping TypeName="BD_SPIRITUAL_ARTModel.REGISTRO_ARTISTA">
         <MappingFragment StoreEntitySet="REGISTRO_ARTISTA">

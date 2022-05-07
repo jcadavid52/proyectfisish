@@ -5,8 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d81bb2a7c6df4da7b230a43822667fc6" Name="Diagram1">
+        <EntityTypeShape EntityType="BD_SPIRITUAL_ARTModel.CATEGORIA" Width="1.5" PointX="3" PointY="7.25" />
+        <EntityTypeShape EntityType="BD_SPIRITUAL_ARTModel.PRODUCTO" Width="1.5" PointX="5.25" PointY="1.5" />
         <EntityTypeShape EntityType="BD_SPIRITUAL_ARTModel.REGISTRO_ARTISTA" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="BD_SPIRITUAL_ARTModel.TIPO_PLAN" Width="1.5" PointX="0.75" PointY="1.75" />
+        <AssociationConnector Association="BD_SPIRITUAL_ARTModel.FK__PRODUCTO__FK_CAT__5535A963" />
+        <AssociationConnector Association="BD_SPIRITUAL_ARTModel.FK__PRODUCTO__FK_ART__5629CD9C" />
         <AssociationConnector Association="BD_SPIRITUAL_ARTModel.FK__REGISTRO___FK_TI__3D5E1FD2" />
       </Diagram>
     </edmx:Diagrams>

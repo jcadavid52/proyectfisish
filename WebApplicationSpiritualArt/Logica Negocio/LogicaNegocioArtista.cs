@@ -59,6 +59,9 @@ namespace WebApplicationSpiritualArt.Logica_Negocio
         
         }
 
+        
+
+        //inicio de sesión
         public REGISTRO_ARTISTA Acceso(REGISTRO_ARTISTA VerificarSesion)
         {
             using (BD_SPIRITUAL_ARTEntities bd = new BD_SPIRITUAL_ARTEntities())
@@ -67,7 +70,7 @@ namespace WebApplicationSpiritualArt.Logica_Negocio
                 
             }
         }
-
+        //modifica imagen del perfil del artista
         public void modificarImagen(REGISTRO_ARTISTA nuevaImagen)
         {
             using (BD_SPIRITUAL_ARTEntities bd = new BD_SPIRITUAL_ARTEntities())
@@ -76,6 +79,10 @@ namespace WebApplicationSpiritualArt.Logica_Negocio
                 bd.SaveChanges();
             }
         }
+
+        //consulta artistas
+
+        
 
         
 

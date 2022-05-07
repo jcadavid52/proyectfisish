@@ -27,6 +27,8 @@ namespace WebApplicationSpiritualArt.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CATEGORIA> CATEGORIA { get; set; }
+        public virtual DbSet<PRODUCTO> PRODUCTO { get; set; }
         public virtual DbSet<REGISTRO_ARTISTA> REGISTRO_ARTISTA { get; set; }
         public virtual DbSet<TIPO_PLAN> TIPO_PLAN { get; set; }
     

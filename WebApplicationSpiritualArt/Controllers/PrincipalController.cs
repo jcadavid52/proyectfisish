@@ -20,19 +20,27 @@ namespace WebApplicationSpiritualArt.Controllers
     {
         LogicaNegocioArtista logicaNegocioArtista = new LogicaNegocioArtista();
         LogicaPlanes logicaPlanes = new LogicaPlanes();
+        LogicaCategoria logicaCategoria = new LogicaCategoria();
+        LogicaProductos logicaProductos = new LogicaProductos();
         // GET: Principal
         public ActionResult Index()
         {
-
+            //listar obras de los artistas premium
+            ViewBag.PremiumArtista = logicaProductos.listarObrasPremium();
             return View();
         }
 
-        //este metodo es igual al index pero solo se accede a él cuando el artista se haya registrado
+        //este metodo es igual al index pero solo se accede a él cuando el artista se haya registrado(espacio virtual)
         public ActionResult IndexSesion()
         {
+            //listar categorías
+            List<CATEGORIA> categorias = logicaCategoria.listarCategoria();
+            //consultar obras del artista
+            int fk_artista = Convert.ToInt32( Session["id_registro"].ToString());
+            ViewBag.ConsultaObras = logicaProductos.consultarObra(fk_artista);
             if (Session["correo"] != null && Session["clave"] != null)
             {
-                return View();
+                return View(categorias);
             }
             else
             {
@@ -42,7 +50,7 @@ namespace WebApplicationSpiritualArt.Controllers
 
 
         }
-
+        //solo vista de registro
         public ActionResult RegistrarArtista()
         {
             List<TIPO_PLAN> listarPlanes = logicaPlanes.listarPlanes();
@@ -87,14 +95,17 @@ namespace WebApplicationSpiritualArt.Controllers
 
                 //envio de los parametros que va a llevar el envio del email
                 logicaNegocioArtista.EnviarEmail(obtenerClave.CORREO, obtenerClave.CLAVE, obtenerClave.CORREO, obtenerClave.NOMBRE_ARTISTA);
+                Session["id_registro"] = obtenerClave.PK_ID_ARTISTA;
                 return View("IniciarSesionPago", obtenerClave);
             }
         }
-
+        //solo vista de inicio de sesión
         public ActionResult IniciarSesion()
         {
+            
             return View();
         }
+        //vista que se muestra si el usuario relaizo el pago o se registró gratuitamente
         public ActionResult IniciarSesionPago()
         {
             string correo = TempData["correo"].ToString();
@@ -123,20 +134,30 @@ namespace WebApplicationSpiritualArt.Controllers
                 CORREO = correo,
                 IMAGEN = imagen
 
+
             };
 
             logicaNegocioArtista.RegistrarArtista(registrarArtista);
 
             REGISTRO_ARTISTA obtenerClave = logicaNegocioArtista.obtenerClaveArtista(correo, nombre_artista, primer_apellido, segundo_apellido);
+            Session["id_registro"] = obtenerClave.PK_ID_ARTISTA;
             return View(obtenerClave);
         }
-
+        //Acción al dar click en el botón iniciar sesión
         public ActionResult IniciarSesionAccion(REGISTRO_ARTISTA datosAcceso)
         {
             REGISTRO_ARTISTA acceso = logicaNegocioArtista.Acceso(datosAcceso);
+            //listar categorías
+            List<CATEGORIA> categorias = logicaCategoria.listarCategoria();
+            
             if (acceso == null)
             {
                 ViewBag.Mensaje = "Clave o usuario inválido, intente nuevamente";
+                return View("IniciarSesion");
+            }
+            else if(acceso.ESTADO != true)
+            {
+                ViewBag.Mensaje = "Tu usuario actualmente está desactivado, comunicate con nosotros";
                 return View("IniciarSesion");
             }
             else
@@ -144,16 +165,32 @@ namespace WebApplicationSpiritualArt.Controllers
                 Session["correo"] = acceso.CORREO;
                 Session["clave"] = acceso.CLAVE;
                 Session["imagen"] = acceso.IMAGEN;
-                return View("IndexSesion");
+                Session["ciudad"] = acceso.CIUDAD;
+                Session["id_registro"] = acceso.PK_ID_ARTISTA;
+                Session["pais"] = acceso.PAIS;
+                Session["localidad"] = acceso.LOCALIDAD;
+                Session["direccion"] = acceso.DIRECCION;
+                Session["fk_plan"] = acceso.FK_TIPO_PLAN;
+                Session["nombre_artista"] = acceso.NOMBRE_ARTISTA;
+                Session["primer_apellido"] = acceso.PRIMER_APELLIDO_ARTISTA;
+                Session["segundo_apellido"] = acceso.SEGUNDO_APELLIDO_ARTISTA;
+                Session["telefono"] = acceso.TELEFONO;
+
+                //consultar obras del artista
+                int fk_artista = Convert.ToInt32(Session["id_registro"].ToString());
+                ViewBag.ConsultaObras = logicaProductos.consultarObra(fk_artista);
+
+
+                return View("IndexSesion", categorias);
             }
         }
-
+        //vista donde el artista puede gestionar sus obras
         public ActionResult EspacioArtista()
         {
             return View();
         }
 
-
+        //método que se usa para hacer el pago del plan desde paypal
         [HttpPost]
         public async Task<JsonResult> PagoPlan(string precio, string plan)
         {
@@ -211,7 +248,7 @@ namespace WebApplicationSpiritualArt.Controllers
 
             return Json(new { status = status, respuesta = respuesta }, JsonRequestBehavior.AllowGet);
         }
-
+        //solo vista de los planes
         public ActionResult OfertaPlanes()
         {
             return View();
@@ -219,28 +256,90 @@ namespace WebApplicationSpiritualArt.Controllers
 
         public ActionResult CerrarSesion()
         {
+            //listar obras de los artistas premium
+            ViewBag.PremiumArtista = logicaProductos.listarObrasPremium();
+
             Session["correo"] = null;
             Session["clave"] = null;
 
             return View("Index");
         }
 
+
+        // cambia la imagen de perfil del artista
         public ActionResult CambiarImagen(REGISTRO_ARTISTA nuevaImagen)
         {
-            if (nuevaImagen.IMAGEN != null)
-            {
-                string nombreArchivo = Path.GetFileNameWithoutExtension(nuevaImagen.archivo.FileName);
-                string extension = Path.GetExtension(nuevaImagen.archivo.FileName);
-                nombreArchivo = nombreArchivo + DateTime.Now.ToString("yymmssfff") + extension;
-                nuevaImagen.IMAGEN = "~/ArchivosLectura/" + nombreArchivo;
-                nombreArchivo = Path.Combine(Server.MapPath("~/ArchivosLectura/"), nombreArchivo);
-                nuevaImagen.archivo.SaveAs(nombreArchivo);
-                logicaNegocioArtista.modificarImagen(nuevaImagen);
-                ModelState.Clear();
-                return View("Index");
-            }
-                return View("Index");
+            //listar categorías
+            List<CATEGORIA> categorias = logicaCategoria.listarCategoria();
+
+            //consultar obras del artista
+            int fk_artista = Convert.ToInt32(Session["id_registro"].ToString());
+            ViewBag.ConsultaObras = logicaProductos.consultarObra(fk_artista);
+
+            string nombreArchivo = Path.GetFileNameWithoutExtension(nuevaImagen.archivo.FileName);
+            string extension = Path.GetExtension(nuevaImagen.archivo.FileName);
+            nombreArchivo = nombreArchivo + DateTime.Now.ToString("yymmssfff") + extension;
+            nuevaImagen.IMAGEN = "~/ArchivosLectura/" + nombreArchivo;
+            nombreArchivo = Path.Combine(Server.MapPath("~/ArchivosLectura/"), nombreArchivo);
+            nuevaImagen.archivo.SaveAs(nombreArchivo);
+            nuevaImagen.ESTADO = true;
+            logicaNegocioArtista.modificarImagen(nuevaImagen);
+
+            ModelState.Clear();
+            Session["imagen"] = nuevaImagen.IMAGEN;
+
+            return View("IndexSesion", categorias);
+
 
         }
+
+        //publicación de la obra que hace el artista
+        public ActionResult PublicarObraAccion(PRODUCTO nuevoProducto)
+        {
+            //listar categorías
+            List<CATEGORIA> categorias = logicaCategoria.listarCategoria();
+
+            //guardar imagen y obtener ruta
+            string nombreArchivo = Path.GetFileNameWithoutExtension(nuevoProducto.archivoProducto.FileName);
+            string extension = Path.GetExtension(nuevoProducto.archivoProducto.FileName);
+
+            nombreArchivo = nombreArchivo + DateTime.Now.ToString("yymmssfff") + extension;
+            nuevoProducto.IMAGEN_PRODUCTO = "../ArchivosLectura/" + nombreArchivo;
+            nombreArchivo = Path.Combine(Server.MapPath("~/ArchivosLectura/"), nombreArchivo);
+
+            nuevoProducto.archivoProducto.SaveAs(nombreArchivo);
+
+            
+            ModelState.Clear();
+
+            //publicar obra
+            logicaProductos.AgregarObra(nuevoProducto);
+
+            //consultar obras del artista
+            int fk_artista = Convert.ToInt32(Session["id_registro"].ToString());
+            ViewBag.ConsultaObras = logicaProductos.consultarObra(fk_artista);
+
+
+            return View("indexSesion",categorias);
+        }
+
+        //exposiciones de todas las obras de los artistas en general
+        public ActionResult Exposicion()
+        {
+            List<PRODUCTO> listarProductoArtistas = logicaProductos.listarObras();
+            ViewBag.Categorias = logicaCategoria.listarCategoria();
+            return View(listarProductoArtistas);
+        }
+
+        public ActionResult FiltrarObras(int id_categoria)
+        {
+            List<PRODUCTO> listarProductoArtistas = logicaProductos.listarObras(id_categoria);
+            ViewBag.Categorias = logicaCategoria.listarCategoria();
+
+            return View("Exposicion",listarProductoArtistas);
+        }
+
+
+
     }
 }

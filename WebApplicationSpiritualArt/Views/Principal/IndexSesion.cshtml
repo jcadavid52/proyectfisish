@@ -1,9 +1,122 @@
-﻿
+﻿@model List<WebApplicationSpiritualArt.Models.CATEGORIA>
+@using WebApplicationSpiritualArt.Models
 @{
     ViewBag.Title = "IndexSesion";
+    List<PRODUCTO> consultaObras = ViewBag.ConsultaObras;
 }
 
 <h2>IndexSesion</h2>
 
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AgregarObra">
+    Agregar Obra
+</button>
+<br />
+<br />
 
 
+<!-- Modal -->
+<div class="modal fade" id="AgregarObra" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Publicar Obra</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="@Url.Action("PublicarObraAccion","Principal")" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+
+                    <div class="in ">
+                        <label>Nombre del obra</label>
+                        <input class="form-control" type="text" name="NOMBRE_PRODUCTO" placeholder="Nombre de la obra" required />
+                    </div>
+
+                    <div class="in ">
+                        <label>Precio</label>
+                        <input class="form-control" type="number" name="PRECIO" placeholder="ingrese el precio" required />
+                    </div>
+
+                    <div class="in ">
+                        <label>Descripción de la obra</label>
+                        <input class="form-control" type="text" name="DESCRIPCION" required placeholder="Descripción" />
+                    </div>
+
+                    <div class="in ">
+                        <label>Cantidad de esta obra</label>
+                        <input class="form-control" type="number" name="CANTIDAD" required placeholder="Cantidad de la obra que quiere publicar" />
+                    </div>
+
+                    <div class="in ">
+                        <label>Sube la imagen de tu obra</label>
+                        <input class="form-control" type="file" name="archivoProducto" required />
+                    </div>
+
+                    <div class="in ">
+                        <label>Selecciona la categoría de tu obra</label>
+                        <select name="FK_CATEGORIA">
+                            @foreach (var categorias in Model)
+                            {
+                                <option value="@categorias.PK_ID_CATEGORIA">@categorias.NOMBRE_CATEGORIA</option>
+                            }
+                        </select>
+                    </div>
+
+                    <input class="form-control" type="hidden" name="ESTADO" value="true" />
+                    <input class="form-control" type="hidden" name="FK_ARTISTA" value="@Session["id_registro"]" />
+
+
+
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <input class="btn btn-primary" type="submit" name="name" value="Publicar" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@if (consultaObras.Count >= 1)
+{
+    <div class="body2">
+        <h2 class="titulocate">Mis Obras</h2>
+        <div id="wrapper">
+            <div id="carousel">
+                <div id="content">
+                    @foreach (var obras in consultaObras)
+                    {
+
+
+                        <figure style="background-image:url(@obras.IMAGEN_PRODUCTO);">
+
+                            <figcaption class="spn"><a href="">@obras.NOMBRE_PRODUCTO</a></figcaption>
+
+                        </figure>
+                    }
+                </div>
+            </div>
+            <button id="prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="none" d="M0 0h24v24H0V0z" />
+                    <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z" />
+                </svg>
+            </button>
+            <button id="next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="none" d="M0 0h24v24H0V0z" />
+                    <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" />
+                </svg>
+            </button>
+        </div>
+   
+
+    </div>
+}
+else
+{
+    <div>
+        <h4>No tienes obras publicadas</h4>
+    </div>
+}

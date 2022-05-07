@@ -15,6 +15,12 @@ namespace WebApplicationSpiritualArt.Models
 
     public partial class REGISTRO_ARTISTA
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public REGISTRO_ARTISTA()
+        {
+            this.PRODUCTO = new HashSet<PRODUCTO>();
+        }
+    
         public int PK_ID_ARTISTA { get; set; }
         public string NOMBRE_ARTISTA { get; set; }
         public string PRIMER_APELLIDO_ARTISTA { get; set; }
@@ -29,9 +35,11 @@ namespace WebApplicationSpiritualArt.Models
         public Nullable<int> FK_TIPO_PLAN { get; set; }
         public Nullable<bool> ESTADO { get; set; }
         public string IMAGEN { get; set; }
-    
-        public virtual TIPO_PLAN TIPO_PLAN { get; set; }
 
         public HttpPostedFileBase archivo { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PRODUCTO> PRODUCTO { get; set; }
+        public virtual TIPO_PLAN TIPO_PLAN { get; set; }
     }
 }

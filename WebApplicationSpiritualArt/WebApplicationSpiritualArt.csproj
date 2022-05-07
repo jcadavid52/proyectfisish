@@ -133,8 +133,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logica Negocio\LogicaCategoria.cs" />
     <Compile Include="Logica Negocio\LogicaNegocioArtista.cs" />
     <Compile Include="Logica Negocio\LogicaPlanes.cs" />
+    <Compile Include="Logica Negocio\LogicaProductos.cs" />
+    <Compile Include="Models\CATEGORIA.cs">
+      <DependentUpon>ModeloGeneralSpiritualArtBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ModeloGeneralSpiritualArtBD.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -151,6 +156,9 @@
       <DependentUpon>ModeloGeneralSpiritualArtBD.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\PagosPlan\OrdenPlanes.cs" />
+    <Compile Include="Models\PRODUCTO.cs">
+      <DependentUpon>ModeloGeneralSpiritualArtBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\REGISTRO_ARTISTA.cs">
       <DependentUpon>ModeloGeneralSpiritualArtBD.tt</DependentUpon>
     </Compile>
@@ -164,6 +172,11 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\IniciarSesion.css" />
+    <Content Include="Content\RegistroArtista.css" />
+    <Content Include="Content\slider.css" />
+    <Content Include="Content\slider2.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -198,6 +211,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\slider.js" />
+    <Content Include="Scripts\slider2.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -215,10 +230,10 @@
     <Content Include="Views\Principal\Index.cshtml" />
     <Content Include="Views\Principal\RegistrarArtista.cshtml" />
     <Content Include="Views\Principal\IniciarSesionPago.cshtml" />
-    <Content Include="Views\Principal\EspacioArtista.cshtml" />
     <Content Include="Views\Principal\IndexSesion.cshtml" />
     <Content Include="Views\Principal\OfertaPlanes.cshtml" />
     <Content Include="Views\Principal\IniciarSesion.cshtml" />
+    <Content Include="Views\Principal\Exposicion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
